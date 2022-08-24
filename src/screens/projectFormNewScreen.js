@@ -10,12 +10,14 @@ import { useState, useContext, useEffect  } from 'react'
 import axios_api from '../axios_api'
 
 import Footer from '../components/Footer'
+import Posts from '../components/Posts' 
+import Pagination from '../components/Pagination' 
 
 import {Store} from '../Store'
 import Loader from '../components/Loader'
 
 
-function ProjectFormScreen() {
+function ProjectFormNewScreen() {
     let navigate = useNavigate()
     let [loading, setLoading] = useState(false)     
 
@@ -35,9 +37,9 @@ function ProjectFormScreen() {
     let {_one_product_selected_} = state     
     let ops = _one_product_selected_.data
 
-    const [name, setName] = useState(ops.name || "")
-    const [description, setDescription] = useState(ops.description || "")
-    const [component, setComponent] = useState(ops.component || "")
+    const [name, setName] = useState("")
+    const [description, setDescription] = useState("")
+    const [component, setComponent] = useState("")
 
   
 
@@ -56,12 +58,8 @@ function ProjectFormScreen() {
         }
         
         let res = ""
-
-        if (id < 1) {
-            res = await axios_api.post('v1/projects/', _data_, _config_token_)
-        } else {
-            res = await axios_api.patch(`v1/projects/${id}`, _data_, _config_token_)
-        }
+        
+        res = await axios_api.post('v1/projects/', _data_, _config_token_)        
 
         if (res.data) {
             setLoading(false)
@@ -102,29 +100,13 @@ function ProjectFormScreen() {
 
                     <Row style={{marginTop:'20px'}}>
                         <Col md="6"  className="d-grid gap-2">
-                          {
-                            id < 1 
-                            ?
-                            (
-                                <Button 
-                                type="submit" 
-                                variant="outline-primary" 
-                                size="sm" 
+                            <Button 
+                            type="submit" 
+                            variant="outline-primary" 
+                            size="sm" 
                             >
                                 Save
-                            </Button>
-                            )
-                            : 
-                            (
-                                <Button 
-                                type="submit" 
-                                variant="outline-primary" 
-                                size="sm" 
-                            >
-                                Update
-                            </Button>
-                            )
-                          }
+                            </Button>                        
                         </Col>  
 
                         <Col md="6"  className="d-grid gap-2">
@@ -150,7 +132,7 @@ function ProjectFormScreen() {
 	)
 }
 
-export default ProjectFormScreen
+export default ProjectFormNewScreen
 
 let addNewBtn = {
     marginTop: '50px',

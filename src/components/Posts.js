@@ -9,7 +9,7 @@ import {
 import axios_api from '../axios_api'
 import {Store} from '../Store'
 
-let Posts = ({loading, posts, _current_page_, _rows_per_page_, _go_to_edit_}) => {         
+let Posts = ({loading, posts, _current_page_, _rows_per_page_, _go_to_edit_, _go_to_delete_ }) => {         
     let navigate = useNavigate()
     let _starter_num_ = ((_current_page_ * _rows_per_page_) - _rows_per_page_) + 1
     
@@ -28,7 +28,12 @@ let Posts = ({loading, posts, _current_page_, _rows_per_page_, _go_to_edit_}) =>
                     >
                         Edit
                     </Button> 
-                    <Button variant="outline-danger" size="sm" style={{marginLeft:'15px'}}>
+                    <Button 
+                        variant="outline-danger" 
+                        size="sm" 
+                        style={{marginLeft:'15px'}}
+                        onClick={() => _go_to_delete_(v.id)} 
+                    >
                         Delete
                     </Button>                    
                 </td>

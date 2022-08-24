@@ -7,6 +7,7 @@ import PrivateRouteCheck from './privateRouteCheck'
 import LoginScreen from './screens/loginScreen'
 import ProjectScreen from './screens/projectScreen'
 import ProjectFormScreen from './screens/projectFormScreen'
+import ProjectFormNewScreen from './screens/projectFormNewScreen'
 
 
 function App() {	
@@ -27,6 +28,12 @@ function App() {
 				<Route path="/project_form/:id" element={ 
 					<PrivateRouteCheck>
 						<ProjectFormScreen />
+					</PrivateRouteCheck>					
+				} />
+
+				<Route path="/project_form_new" element={ 
+					<PrivateRouteCheck>
+						<ProjectFormNewScreen />
 					</PrivateRouteCheck>					
 				} />
 

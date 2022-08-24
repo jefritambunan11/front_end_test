@@ -75,6 +75,26 @@ function ProjectScreen() {
         navigate(`/project_form/${_id_}`)
     }
 
+    let deleteParticularProject = async (_id_) => {
+        let choose = window.confirm("Are you sure to delete this ?")
+        if (choose) {
+            let _config_token_ = {
+                headers: { Authorization: `Bearer ${_token_}` }
+            }
+            
+            let res = await axios_api.delete(`v1/projects/${_id_}`, _config_token_)
+    
+            cxtDispatch({
+                type: 'DELETE_ONE_PRODUCT_SELECTED',
+                payload: ""
+            })
+
+            localStorage.removeItem('_one_product_selected_') 
+
+            navigate(`/`)
+        }        
+    }
+
 
     let indexOfLastPost = currentPage * postPerPage
     let indexOfFirstPost = indexOfLastPost - postPerPage
@@ -82,7 +102,7 @@ function ProjectScreen() {
 
     return (
 		<Container className='large-container'>
-            <a href="/project_form/0">            
+            <a href="/project_form_new">            
                 <Button variant="outline-primary"  style={addNewBtn}>
                     Add New
                 </Button>
@@ -99,7 +119,7 @@ function ProjectScreen() {
                     </tr> 
                 </thead>
                 <tbody> 
-                    <Posts loading={loading} posts={currentPosts} _current_page_={currentPage} _rows_per_page_={postPerPage} _go_to_edit_={getParticularProject} /> 
+                    <Posts loading={loading} posts={currentPosts} _current_page_={currentPage} _rows_per_page_={postPerPage} _go_to_edit_={getParticularProject} _go_to_delete_={deleteParticularProject}  /> 
                 </tbody>
             </Tabel>
             <Pagination _post_per_page_={postPerPage} _total_posts_={posts.length} _paginate_={paginate}  />

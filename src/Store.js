@@ -29,8 +29,14 @@ function reducer(state, action) {
                     ...state,
                     _one_product_selected_: action.payload,
                 }
-        
 
+        case 'DELETE_ONE_PRODUCT_SELECTED':
+            return {
+                ...state,
+                _one_product_selected_: "",
+            }        
+        
+                
         default:
             return state
     }
