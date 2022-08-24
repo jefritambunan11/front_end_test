@@ -1,7 +1,12 @@
+
 .logo {
 	width: 50px;
 }
 
 .small-container {
-	max-width: 600px;
+	max-width: 500px;	
+}
+
+.large-container {
+	max-width: 900px;	
 }

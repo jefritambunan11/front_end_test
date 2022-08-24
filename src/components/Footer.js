@@ -5,7 +5,7 @@ import {
 
 function Footer(props) {
     return (
-        <Row className='mb-3' >
+        <Row className='mb-3' style={footerSty}>
             <div style={style}>Front End Test by 
             <a style={linkedinSty} 
                 href="https://www.linkedin.com/in/jefri-ari-aquila-tambunan-805334173/"
@@ -20,6 +20,13 @@ function Footer(props) {
 
 
 export default Footer
+
+let footerSty = {
+    position: 'fixed',
+    left: 0,
+    bottom: 0,
+    right: 0    
+}
 
 let style = {
     fontSize: '11px',

@@ -6,9 +6,7 @@ import PrivateRouteCheck from './privateRouteCheck'
 
 import LoginScreen from './screens/loginScreen'
 import ProjectScreen from './screens/projectScreen'
-
-
-
+import ProjectFormScreen from './screens/projectFormScreen'
 
 
 function App() {	
@@ -16,15 +14,20 @@ function App() {
 		<BrowserRouter>
 			<Routes>							
 				<Route path="/" element={ 
-					<PrivateRouteCheck original_url="main"></PrivateRouteCheck> 
-				} 
-				/>
+					<PrivateRouteCheck original_url="main">
+					</PrivateRouteCheck> 
+				}/>
 
 				<Route path="/project" element={ 
 					<PrivateRouteCheck>
 						<ProjectScreen />
-					</PrivateRouteCheck>
-					
+					</PrivateRouteCheck>					
+				} />
+				
+				<Route path="/project_form/:id" element={ 
+					<PrivateRouteCheck>
+						<ProjectFormScreen />
+					</PrivateRouteCheck>					
 				} />
 
 				<Route path="/login" element={<LoginScreen />} />			

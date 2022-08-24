@@ -5,15 +5,20 @@ import {
 } from 'react-router-dom'
 import {LinkContainer} from 'react-router-bootstrap'
 import { 
-	Container, Form,  Button,
+	Container, Form,  Button, Col
 } from 'react-bootstrap'
 import axios from 'axios'
 
 import {Store} from '../Store'
 import Footer from '../components/Footer'
+import Loader from '../components/Loader'
+
+import logo from '../images/logo.png'
+
 
 function LoginScreen() {
     let navigate = useNavigate()
+    let [loading, setLoading] = useState(false) 
     let [username, setUsername] = useState('')
     let [password, setPassword] = useState('')
 
@@ -21,6 +26,7 @@ function LoginScreen() {
 
 	let submitHandler = async (event) => {
 		event.preventDefault()
+		setLoading(true)
 
 		let result = await axios.post('Auth/login', {username, password})
 
@@ -41,14 +47,8 @@ function LoginScreen() {
             data: _user_info_ 
         }))
 
-        navigate('/project')
-
-		console.log("hasil api login")
-		console.log(result)
-		console.log("Token")
-		console.log(result.data.access_token)
-		return 
-		
+		setLoading(false)
+        navigate('/project')		
 	}
 
 	let clearTxtbox = () => {
@@ -57,13 +57,13 @@ function LoginScreen() {
 	}
 
 	return (
-		<Container className='small-container mb-5'>
+		<Container className='small-container'>
 			<Helmet>
 				<title>Login Page</title>
-			</Helmet>
-		
+			</Helmet>		
 
-			<Form style={fromSty}>
+			<Form style={loginFormSty}>
+				
 				<Form.Group className='mb-3' controlId='username' >
 					<Form.Label>Username</Form.Label>
 					<Form.Control type="username" required onChange={(e) => setUsername(e.target.value)} value={username} />
@@ -72,16 +72,20 @@ function LoginScreen() {
 					<Form.Label>Password</Form.Label>
 					<Form.Control type="password" required onChange={(e) => setPassword(e.target.value)} value={password} />
 				</Form.Group>
+
+				<div  className='mb-4'>
+					<div >
+						<Button type="submit" variant="outline-primary" size="sm" onClick={submitHandler}>Sign In</Button>
+					
+						<Button variant="outline-danger" size="sm" onClick={clearTxtbox} style={{marginLeft:'5px'}}>Clear</Button>
+					</div>
+
+					<Loader loading={loading}  />
+				</div>
+				
 			</Form>
 
-			<div  className='mb-5'>
-				<Button type="submit" onClick={submitHandler}>Sign In</Button>
-				<Button variant='danger' onClick={clearTxtbox} style={{marginLeft:'5px'}}>Clear</Button>
-			</div>
-
-
-
-			<Footer designedby="Jefri Tambunan" _for_="Tritronik"></Footer>
+			<Footer _designed_by_="Jefri Tambunan" _for_="Tritronik"></Footer>
 		</Container>
 	)
 
@@ -91,11 +95,19 @@ function LoginScreen() {
 export default LoginScreen
 
 
-let fromSty = {
-	marginTop: '70px'
+let loginFormSty = {
+	backgroundColor: '#fff',
+    borderRadius: '10px',    
+    borderWidth: '3px',
+    borderColor:'#f3f3f3',
+
+	marginTop: '70px',
+	paddingTop: '30px',
+    paddingBottom: '5px',
+    paddingLeft: '50px',
+    paddingRight: '50px'
+
 }
 
-let containerBtnSty = {
-	display: 'flex',
-	justifyContent: 'space-between',
-}
+
+

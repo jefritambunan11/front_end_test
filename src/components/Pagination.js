@@ -18,18 +18,20 @@ let Pagination = ({_post_per_page_, _total_posts_, _paginate_}) => {
                             key={number}
                             className="page-item"
                         > 
-                            <a 
-                                onClick={() => _paginate_(number) }
-                                href="#" 
-                                className="page-link"
-                            >
-                                {number}
-                            </a>
-                        </li>                        
-                    ))
-                }
-             
-            </ul>
+                            <a  
+                                onClick={() => _paginate_(number) } 
+                                href="#"  
+                                className="page-link" 
+                            > 
+                                {number} 
+                            </a> 
+                        </li> 
+                    )) 
+                } 
+            </ul> 
+
+            <div>Total Data : {_total_posts_} </div>
+
         </nav>
         
     )
